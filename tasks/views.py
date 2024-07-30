@@ -4,7 +4,7 @@ from django.http import HttpResponse
 # Registro
 
 def register(request):
-    return HttpResponse('Registre-se aqui!')
+    return render(request, 'register.html')
 
 # Login
 def login(request):
