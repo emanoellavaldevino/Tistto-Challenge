@@ -1,16 +1,11 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from rest_framework.response import Response
+from .models import Todo
+from .serializers import TodoSerializer
 
-# Registro
 
-def register(request):
-    return render(request, 'register.html')
+def todo_list(request):
+    todos = Todo.objects.all()
+    serializer = TodoSerializer(todos, many=True)
+    return Response(serializer.data)
 
-# Login
-def login(request):
-    return HttpResponse()
-
-# Logout
-
-def logout(request):
-    return HttpResponse()
