@@ -10,7 +10,7 @@ class Todo(models.Model):
     completed = models.BooleanField(default=False) # Tipo de campo que armazena dados booleanos e valor padrão false 
     created = models.DateField(auto_now_add=True) # Tipo de campo que armazena uma data, auto_now_add=True define que a data atual será add automaticamente
     updated = models.DateField(auto_now=True) # define que a data atual será atualizada automaticamente toda vez que o objeto for salvo
-    user = models.ForeignKey(User, on_delete=models.CASCADE)  # Associar a tarefa ao usuário
+    user = models.ForeignKey(User, on_delete=models.CASCADE, default=1)  # Associar a tarefa ao usuário
 
     def __str__(self):      # Método __str__ para retornar o valor do campo task
         return self.task 
