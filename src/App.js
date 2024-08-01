@@ -26,6 +26,7 @@ function App() {
         <div className='todo-input'>       
           <button type='button' className='primaryBtn'>Add</button>
         </div>
+<<<<<<< HEAD
       
 
       {/* Área com botões de filtro de tarefas: um para mostrar todas as tarefas e outro para mostrar apenas as concluídas. */}
@@ -44,6 +45,26 @@ function App() {
           </div>
       </div>
     </div>             
+=======
+      </div>
+
+      {/* Área com botões de filtro de tarefas: um para mostrar todas as tarefas e outro para mostrar apenas as concluídas. */}
+      <div className='btn-area'>
+          <button>Todo</button>
+          <button>Completed</button>
+      </div>
+      
+      {/* Lista de tarefas, cada tarefa é envolvida em uma div com a classe "todo-list-item". */}
+      <div className='todo-list'>
+
+            <div className='todo-list-item'>
+              <h3>Task 1</h3>
+              <p>Descrição</p>
+            </div>
+
+        </div>
+      </div>             
+>>>>>>> 48ef117942eb95f338f9843ddebd7a66b4938d83
   );
 }
 
