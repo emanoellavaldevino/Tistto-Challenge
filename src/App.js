@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { AiOutlineDelete } from 'react-icons/ai';
+import { BsCheckLg } from 'react-icons/bs';
 import './App.css';
 
 function App() {
@@ -53,6 +55,11 @@ function App() {
             <h3>Take 1</h3>
             <p>Descrição</p>
           </div>
+        </div>
+
+        <div> <AiOutlineDelete className='icon'/>
+              <BsCheckLg className='check-icon'/>
+
         </div>
       </div>
     </div>             
