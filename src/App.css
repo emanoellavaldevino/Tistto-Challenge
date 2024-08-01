@@ -1,78 +1,110 @@
-/* app.css */
-
-/* Regras @font-face para fontes personalizadas */
-@font-face {
-  font-family: 'NotoSans_online_security'; 
-  src: url('/fonts/noto-sans-regular.woff') format('woff');
-}
-
-@font-face {
-  font-family: 'NotoSans_medium_online_security'; 
-  src: url('/fonts/noto-sans-medium.ttf') format('truetype');
-}
-
-@font-face {
-  font-family: 'NotoSans_bold_online_security'; 
-  src: url('/fonts/noto-sans-bold.woff') format('woff');
-}
-
-@font-face {
-  font-family: 'NotoSans_semibold_online_security'; 
-  src: url('/fonts/noto-sans-semibold.ttf') format('truetype');
-}
-
-/* Estilos principais */
 body {
-  background-color: #1f1e1e;
-  color: white;
-  overflow: hidden;
-  font-family: 'NotoSans_online_security', sans-serif; /* Aplicar fonte personalizada ao body */
+  background-color: #1f1e1e; /* Cor de fundo da aplicação */
+  color: white; /* Cor do texto */
+  overflow: hidden; /* Evita barra de rolagem */
+  font-family: Arial, sans-serif; /* Fonte utilizada */
 }
 
 h1 {
-  text-align: center;
+  text-align: center; /* Centraliza o título */
 }
 
 .todo-wrapper {
-  background: #353434;
-  padding: 2%;
-  width: fit-content;
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: 3%;
-  max-height: 80vh;
-  overflow-y: auto;
-  box-shadow: 0px 5px 7px rgb(27, 27, 27);
+  background: #353434; /* Cor de fundo da área de tarefas */
+  padding: 2%; /* Espaçamento interno */
+  width: 60%; /* Largura da área de tarefas */
+  margin: 3% auto; /* Espaçamento externo e centralização */
+  max-height: 80vh; /* Altura máxima */
+  overflow-y: auto; /* Permite rolagem vertical */
+  box-shadow: 0px 5px 7px rgb(27, 27, 27); /* Sombra da área de tarefas */
+  border-radius: 10px; /* Borda arredondada */
 }
 
 .todo-input {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-bottom: 1px solid rgb(78, 78, 78);
-  padding-bottom: 25px;
-  margin-bottom: 25px;
+  display: flex; /* Alinha os itens em linha */
+  flex-direction: row; /* Alinha os itens horizontalmente */
+  align-items: flex-end; /* Alinha os itens ao final da linha add*/
+  margin-bottom: 10px; /* Espaçamento inferior */
 }
 
 .todo-input-item {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  margin-right: 25px;
+  display: flex; /* Alinha os itens em coluna */
+  flex-direction: column; /* Alinha os itens verticalmente */
+  margin-right: 180px; /* Espaçamento à direita */
+  margin-bottom: 5px; /* Espaçamento inferior dos itens */
+  justify-content: space-between; /* Distribui o espaço entre o título e a descrição */
+
 }
 
 .todo-input-item label {
-  font-weight: bold;
-  margin-bottom: 10px;
+  font-weight: bold; /* Negrito para o texto */
+  margin-bottom: 5px; /* Espaçamento inferior */
+  
 }
 
 .todo-input-item input {
-  padding: 8px;
-  border: none;
-  width: 200px;
+  padding: 5px; /* Espaçamento interno */
+  border: 1px solid #ccc; /* Borda do campo de texto */
+  margin-top: 5px; /* Espaçamento superior */
+  width: 200px; /* Largura do campo de texto */
+  box-sizing: content-box; /* Inclui padding e border na largura total */
+  border-radius: 3%; /* Borda arredondada */
 }
 
 .todo-input-item input:focus {
-  outline: none;
-  border: 2px solid rgb(0, 230, 122);
+  outline: 2px solid rgb(0,230,122); /* Cor da borda ao focar no campo */
+  
+}
+
+.primaryBtn {
+  background-color: rgb(0,230,122); /* Cor de fundo do botão */
+  color: white; /* Cor do texto do botão */
+  border: none; /* Remove a borda do botão */
+  border-radius: 5px; /* Borda arredondada do botão */
+  padding: 7px; /* Espaçamento interno do botão add*/
+  cursor: pointer; /* Cursor de ponteiro ao passar sobre o botão */
+  transition: background-color 0.3s; /* Transição suave da cor de fundo */
+}
+
+.primaryBtn:hover {
+  background-color: #455044; /* Cor de fundo do botão ao passar o mouse */
+}
+
+.btn-area {
+  display: column; /* Alinha os botões em linha completed */
+  justify-content: flex-start; /* Espaça os botões igualmente */
+  margin-bottom: 15px; /* Espaçamento inferior */
+}
+
+.btn {
+  padding: 10px; /* Espaçamento interno do botão */
+  cursor: pointer; /* Cursor de ponteiro ao passar sobre o botão */
+  border: none; /* Remove a borda do botão */
+  border-radius: 5px; /* Borda arredondada do botão */
+  transition: background-color 0.3s; /* Transição suave da cor de fundo */
+}
+
+.inactiveBtn {
+  background-color: rgb(0,230,122); /* Cor de fundo do botão inativo */
+  color: white; /* Cor do texto do botão inativo */
+}
+
+.activeBtn {
+  background-color: rgb(67, 70, 68); /* Cor de fundo do botão ativo */
+  color: white; /* Cor do texto do botão ativo */
+}
+
+.btn:hover {
+  background-color: #454545; /* Cor de fundo do botão ao passar o mouse */
+}
+
+.todo-list-item {
+  background: #454545; /* Cor de fundo do item de tarefa */
+  display: flex;
+  justify-content: space-between;
+  padding: 10px; /* Espaçamento interno do item de tarefa */
+  padding-bottom: 25px; /* Espaçamento inferior do item de tarefa */
+  padding-top: 10px;
+  margin-bottom: 10px;
+  border-radius: 6px; /* Borda arredondada do item de tarefa */
 }
