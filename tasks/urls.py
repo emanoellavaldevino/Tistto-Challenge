@@ -1,12 +1,15 @@
 from django.urls import path
 from . import views
+from django.conf import settings
+from django.conf.urls.static import static
+
 
 urlpatterns = [
-    path('todos', views.todo_list), # Rota para listar e criar tarefas
+    path('todos/', views.todo_list), # Rota para listar e criar tarefas
     path('todos/<int:pk>', views.todo_detail), # Rota para manipular uma tarefa específica
-    path('register', views.register), # Rota para registrar novos usuários
+    path('register/', views.register), # Rota para registrar novos usuários
     path('login', views.login),     # Rota para login de usuários
-]
+]  
 
 # URLs para suas views:
 # http://127.0.0.1:8000/todos

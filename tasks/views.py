@@ -10,7 +10,6 @@ from .models import Todo
 from .serializers import TodoSerializer
 
 # View para listar e criar tarefas
-
 @api_view(["GET", "POST"])
 @permission_classes([IsAuthenticated])  # Garante que apenas usuários autenticados possam acessar esta view
 def todo_list(request):
@@ -27,7 +26,6 @@ def todo_list(request):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 # View para manipular uma tarefa específica
-
 @api_view(["GET", "PATCH", "PUT", "DELETE"])
 @permission_classes([IsAuthenticated])  # Garante que apenas usuários autenticados possam acessar esta view
 def todo_detail(request, pk):
@@ -46,37 +44,33 @@ def todo_detail(request, pk):
 
     elif request.method == "DELETE":
         todo.delete()  # Deleta a tarefa
-        return Response(status = status.HTTP_204_NO_CONTENT)
+        return Response(status=status.HTTP_204_NO_CONTENT)
 
 # View para registrar novos usuários
-
 @api_view(["POST"])
 def register(request):
     if request.method == "POST":
-        username = request.data.get('username') # Obter o nome de usuário do corpo da requisição
-        password = request.data.get('password') # Obter a senha do corpo da requisição
+        username = request.data.get('username')  # Obter o nome de usuário do corpo da requisição
+        password = request.data.get('password')  # Obter a senha do corpo da requisição
         if User.objects.filter(username=username).exists():  # Verificar se o usuário já existe
-            return Response({"error: Usuário não existe"}, status=status.HTTP_400_BAD_REQUEST)
-        user = User.objects.create_user(username=username, password=password) # # Criar novo usuário
-        refresh = RefreshToken.for_user(user) # Criar tokens de atualização e acesso para o usuário
+            return Response({"error": "Usuário já existe"}, status=status.HTTP_400_BAD_REQUEST)
+        user = User.objects.create_user(username=username, password=password)  # Criar novo usuário
+        refresh = RefreshToken.for_user(user)  # Criar tokens de atualização e acesso para o usuário
         return Response({'refresh': str(refresh), 'access': str(refresh.access_token)}, status=status.HTTP_201_CREATED)
-    
-# View para login de usuários
 
+# View para login de usuários
 @api_view(['POST'])
 def login(request):
     if request.method == 'POST':
-        username = request.data.get('username') # Obter o nome de usuário do corpo da requisição
+        username = request.data.get('username')  # Obter o nome de usuário do corpo da requisição
         password = request.data.get('password')  # Obter a senha do corpo da requisição
-        user = authenticate(username=username, password=password) # Autenticar o usuário
+        user = authenticate(username=username, password=password)  # Autenticar o usuário
         if user is not None:
             refresh = RefreshToken.for_user(user)  # Criar tokens de atualização e acesso para o usuário
             return Response({'refresh': str(refresh), 'access': str(refresh.access_token)}, status=status.HTTP_200_OK)
         return Response({"error": "Credenciais inválidas"}, status=status.HTTP_400_BAD_REQUEST)
 
-    
 
- 
-
-
+def index(request):
+    return render(request, 'index.html')
 
