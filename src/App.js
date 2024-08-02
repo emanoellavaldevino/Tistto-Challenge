@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { AiOutlineDelete } from 'react-icons/ai';
 import { BsCheckLg } from 'react-icons/bs';
 import './App.css';
@@ -8,6 +8,7 @@ function App() {
   const [allTodos, setTodos] = useState([]);  
   const [newTitle, setNewTitle] = useState("");
   const [newDescription, setNewDescription] = useState("");
+  const [completedTodos, setCompletedTodos] = useState ([]);
 
   const handleaAddTodo = () => {
     let newTodoItem = {
@@ -18,7 +19,52 @@ function App() {
     let updateTodoArr = [...allTodos];
     updateTodoArr.push(newTodoItem);
     setTodos(updateTodoArr);
-  };
+    localStorage.setItem('todolist',JSON.stringify(updateTodoArr))
+    };
+
+  const handleDeleteTodo = (index)=>{
+    let reducedTodo = [...allTodos];
+    reducedTodo.splice(index);
+
+    localStorage.setItem('todolist',JSON.stringify(reducedTodo));
+    setTodos(reducedTodo);
+
+    };
+
+    const handleComplete = index => {
+      let now = new Date ();
+      let dd = now.getDate ();
+      let mm = now.getMonth () + 1;
+      let yyyy = now.getFullYear ();
+      let h = now.getHours ();
+      let m = now.getMinutes ();
+      let s = now.getSeconds ();
+      let completedOn =
+        dd + '-' + mm + '-' + yyyy + ' at ' + h + ':' + m + ':' + s;
+
+      let filteredItem = {
+        ...allTodos[index],
+        completedOn: completedOn,
+      };
+      
+    
+      let updatedCompletedArr = [...completedTodos];
+      updatedCompletedArr.push (filteredItem);
+      setCompletedTodos (updatedCompletedArr);
+      handleDeleteTodo (index);
+      localStorage.setItem (
+        'completedTodos',
+        JSON.stringify (updatedCompletedArr)
+      );
+    };
+  
+
+  useEffect(() =>{
+      let saveTodo = JSON.parse(localStorage.getItem('todolist'));
+      if(saveTodo){
+        setTodos(saveTodo);
+      }
+  }, []);
 
   return (
     <div className="App">
@@ -78,20 +124,47 @@ function App() {
         {/* Lista de tarefas */}
         <div className="todo-list">
           {/* Cada tarefa é envolvida em uma div com a classe "todo-list-item" */}
-          {allTodos.map((item, index) => {
+          {isCompleteScreen===false && allTodos.map((item, index) => {
             return (
               <div className="todo-list-item" key={index}>
                 <div>
                   <h3>{item.title}</h3>
                   <p>{item.description}</p>
                 </div>
+
                 <div className="icon-container">
-                  <AiOutlineDelete className="icon" title="delete?" />
-                  <BsCheckLg className="check-icon" title="Complete?" />
+                  <AiOutlineDelete className="icon" onClick={() => handleDeleteTodo(index) } 
+                  title="delete?" 
+                  />                  
+                  <BsCheckLg className="check-icon" onClick={() => handleComplete(index) } 
+                  title="Complete?" 
+                  />
                 </div>
+
               </div>
             );
           })}
+
+          {isCompleteScreen===true && completedTodos.map((item, index) => {
+                      return (
+                        <div className="todo-list-item" key={index}>
+                          <div>
+                            <h3>{item.title}</h3>
+                            <p>{item.description}</p>
+                            <p><small>Completed on: {item.completedOn}</small></p>
+                          </div>
+
+                          <div>
+                            <AiOutlineDelete 
+                            className="icon" 
+                            onClick={() => handleDeleteTodo(index) } 
+                            title="delete?" 
+                            />
+                          </div>
+
+                        </div>
+                      );
+                    })}
         </div>
       </div>
     </div>
