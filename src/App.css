@@ -1,153 +1,182 @@
+/* Define o estilo geral para o corpo do documento */
 body {
-  background-color: #1f1e1e; /* Cor de fundo da aplicação */
-  color: white; /* Cor do texto */
-  overflow: hidden; /* Evita barra de rolagem */
-  font-family: Arial, sans-serif; /* Fonte utilizada */
+  background-color: #1f1e1e; /* Define a cor de fundo como cinza escuro */
+  color: white; /* Define a cor do texto como branco */
+  overflow: hidden; /* Impede a rolagem */
 }
 
+/* Centraliza o texto dentro dos elementos h1 */
 h1 {
-  text-align: center; /* Centraliza o título */
+  text-align: center;
 }
 
+/* Estilo do contêiner principal para a lista de tarefas */
 .todo-wrapper {
-  background: #353434; /* Cor de fundo da área de tarefas */
-  padding: 2%; /* Espaçamento interno */
-  width: 60%; /* Largura da área de tarefas */
-  margin: 3% auto; /* Espaçamento externo e centralização */
-  max-height: 80vh; /* Altura máxima */
-  overflow-y: auto; /* Permite rolagem vertical */
-  box-shadow: 0px 5px 7px rgb(27, 27, 27); /* Sombra da área de tarefas */
-  border-radius: 10px; /* Borda arredondada */
+  background: #353434; /* Define a cor de fundo como cinza mais claro */
+  padding: 2%; /* Adiciona padding ao redor do conteúdo */
+  width: fit-content; /* Define a largura para caber no conteúdo */
+  margin-left: auto; /* Centraliza horizontalmente */
+  margin-right: auto; /* Centraliza horizontalmente */
+  margin-top: 3%; /* Adiciona uma margem no topo */
+  max-height: 80vh; /* Define uma altura máxima */
+  overflow-y: auto; /* Habilita a rolagem vertical */
+  box-shadow: 0px 5px 7px rgb(27, 27, 27); /* Adiciona um efeito de sombra */
 }
 
+/* Estilo da seção de entrada de tarefas */
 .todo-input {
-  display: flex; /* Alinha os itens em linha */
-  flex-direction: row; /* Alinha os itens horizontalmente */
-  align-items: flex-end; /* Alinha os itens ao final da linha add*/
-  margin-bottom: 10px; /* Espaçamento inferior */
+  display: flex; /* Usa flexbox para o layout */
+  align-items: center; /* Centraliza os itens verticalmente */
+  justify-content: center; /* Centraliza os itens horizontalmente */
+  border-bottom: 1px solid rgb(78, 78, 78); /* Adiciona uma borda inferior */
+  padding-bottom: 25px; /* Adiciona padding na parte inferior */
+  margin-bottom: 25px; /* Adiciona margem na parte inferior */
 }
 
+/* Estilo do contêiner de item de entrada individual */
 .todo-input-item {
-  display: flex; /* Alinha os itens em coluna */
-  flex-direction: column; /* Alinha os itens verticalmente */
-  margin-right: 180px; /* Espaçamento à direita */
-  margin-bottom: 5px; /* Espaçamento inferior dos itens */
-  justify-content: space-between; /* Distribui o espaço entre o título e a descrição */
-
+  display: flex; /* Usa flexbox para o layout */
+  flex-direction: column; /* Organiza os itens verticalmente */
+  align-items: flex-start; /* Alinha os itens ao início horizontalmente */
+  margin-right: 25px; /* Adiciona margem à direita */
 }
 
+/* Estilo dos rótulos dentro dos contêineres de itens de entrada */
 .todo-input-item label {
-  font-weight: bold; /* Negrito para o texto */
-  margin-bottom: 5px; /* Espaçamento inferior */
-  
+  font-weight: bold; /* Define o texto em negrito */
+  margin-bottom: 10px; /* Adiciona uma margem inferior */
 }
 
+/* Estilo dos campos de entrada dentro dos contêineres de itens de entrada */
 .todo-input-item input {
-  padding: 5px; /* Espaçamento interno */
-  border: 1px solid #ccc; /* Borda do campo de texto */
-  margin-top: 5px; /* Espaçamento superior */
-  width: 200px; /* Largura do campo de texto */
-  box-sizing: content-box; /* Inclui padding e border na largura total */
-  border-radius: 3%; /* Borda arredondada */
+  padding: 8px; /* Adiciona padding dentro do campo de entrada */
+  border: none; /* Remove a borda padrão */
+  width: 250px; /* Define a largura do campo de entrada */
 }
 
+/* Altera a borda dos campos de entrada quando em foco */
 .todo-input-item input:focus {
-  outline: 2px solid rgb(0,230,122); /* Cor da borda ao focar no campo */
-  
+  outline: 2px solid rgb(0,230,122); /* Define a cor da borda como verde */
 }
 
+/* Estilo para o botão primário */
 .primaryBtn {
-  background-color: rgb(0,230,122); /* Cor de fundo do botão */
-  color: white; /* Cor do texto do botão */
-  border: none; /* Remove a borda do botão */
-  border-radius: 5px; /* Borda arredondada do botão */
-  padding: 7px; /* Espaçamento interno do botão add*/
-  cursor: pointer; /* Cursor de ponteiro ao passar sobre o botão */
-  transition: background-color 0.3s; /* Transição suave da cor de fundo */
+  background-color: rgb(0,230,122); /* Define a cor de fundo como verde */
+  color: white; /* Define a cor do texto como branco */
+  border: none; /* Remove a borda padrão */
+  border-radius: 0px; /* Define o raio da borda como 0 */
+  margin-top: 25px; /* Adiciona margem no topo */
+  padding: 10px; /* Adiciona padding dentro do botão */
+  width: 60px; /* Define a largura do botão */
+  cursor: pointer; /* Altera o cursor para pointer ao passar o mouse */
 }
 
+/* Altera a cor de fundo do botão primário ao passar o mouse */
 .primaryBtn:hover {
-  background-color: #455044; /* Cor de fundo do botão ao passar o mouse */
+  background-color: rgb(4, 196, 106); /* Escurece a cor verde */
 }
 
+/* Estilo para o botão secundário */
+.secondaryBtn {
+  background-color: rgb(71, 71, 71); /* Define a cor de fundo como cinza */
+  color: white; /* Define a cor do texto como branco */
+  border: none; /* Remove a borda padrão */
+  border-radius: 0px; /* Define o raio da borda como 0 */
+  margin-top: 25px; /* Adiciona margem no topo */
+  padding: 10px; /* Adiciona padding dentro do botão */
+  width: fit-content; /* Define a largura para caber no conteúdo */
+  cursor: pointer; /* Altera o cursor para pointer ao passar o mouse */
+}
+
+/* Estilo para o botão ativo */
+.active {
+  background-color: rgb(0,230,122); /* Define a cor de fundo como verde */
+}
+
+/* Estilo do contêiner da lista de tarefas */
+.todo-list {
+  display: flex; /* Usa flexbox para o layout */
+  flex-direction: column; /* Organiza os itens verticalmente */
+}
+
+/* Estilo para o contêiner da área do botão */
 .btn-area {
-  display: column; /* Alinha os botões em linha completed */
-  justify-content: flex-start; /* Espaça os botões igualmente */
-  margin-bottom: 15px; /* Espaçamento inferior */
+  margin-bottom: 15px; /* Adiciona margem na parte inferior */
 }
 
-.btn {
-  padding: 10px; /* Espaçamento interno do botão */
-  cursor: pointer; /* Cursor de ponteiro ao passar sobre o botão */
-  border: none; /* Remove a borda do botão */
-  border-radius: 5px; /* Borda arredondada do botão */
-  transition: background-color 0.3s; /* Transição suave da cor de fundo */
-}
-
-.inactiveBtn {
-  background-color: rgb(0,230,122); /* Cor de fundo do botão inativo */
-  color: white; /* Cor do texto do botão inativo */
-}
-
-.activeBtn {
-  background-color: rgb(67, 70, 68); /* Cor de fundo do botão ativo */
-  color: white; /* Cor do texto do botão ativo */
-}
-
-.btn:hover {
-  background-color: #454545; /* Cor de fundo do botão ao passar o mouse */
-}
-
+/* Estilo para os itens individuais da lista de tarefas */
 .todo-list-item {
-  background: #454545; /* Cor de fundo do item de tarefa */
-  display: flex; /* Alinha os itens em linha */
-  justify-content: space-between; /* Espaça o conteúdo e os ícones */
-  align-items: center; /* Alinha verticalmente o conteúdo e os ícones */
-  padding: 10px; /* Espaçamento interno do item de tarefa */
-  margin-bottom: 10px; /* Espaçamento inferior do item de tarefa */
-  box-shadow: 0px 2px 3px; /* Borda arredondada do item de tarefa */
-
+  background-color: #414040; /* Define a cor de fundo como cinza mais claro */
+  display: flex; /* Usa flexbox para o layout */
+  justify-content: space-between; /* Distribui os itens horizontalmente */
+  align-items: center; /* Centraliza os itens verticalmente */
+  padding: 25px; /* Adiciona padding dentro do item */
+  padding-bottom: 10px; /* Adiciona menos padding na parte inferior */
+  padding-top: 10px; /* Adiciona menos padding na parte superior */
+  margin-bottom: 10px; /* Adiciona margem na parte inferior */
+  box-shadow: 0px 3px 5px rgb(43, 42, 42); /* Adiciona um efeito de sombra */
 }
 
-.todo-content {
-  display: flex;
-  flex-direction: column;
-  flex-grow: 1; /* Faz o conteúdo ocupar o espaço restante */
+/* Estilo dos elementos h3 dentro dos itens da lista de tarefas */
+.todo-list-item h3 {
+  font-size: 25px; /* Define o tamanho da fonte */
+  color: rgb(0,230,122); /* Define a cor do texto como verde */
+  font-weight: bold; /* Define o texto em negrito */
+  margin: 0; /* Remove a margem padrão */
 }
 
-.icon-container {
-  display: flex; /* Alinha os ícones horizontalmente */
-  align-items: center; /* Alinha verticalmente os ícones no centro */
+/* Estilo dos parágrafos dentro dos itens da lista de tarefas */
+.todo-list-item p {
+  font-size: 14px; /* Define o tamanho da fonte */
+  color: rgb(161, 161, 161); /* Define a cor do texto como cinza claro */
+  margin-top: 8px; /* Adiciona margem no topo */
 }
 
+/* Estilo para os elementos de ícone */
 .icon {
-  font-size: 25px; /* Tamanho dos ícones */
-  cursor: pointer; /* Cursor de ponteiro ao passar sobre o ícone */
-  margin-left: 10px; /* Espaçamento entre os ícones */
+  font-size: 35px; /* Define o tamanho da fonte */
+  cursor: pointer; /* Altera o cursor para pointer ao passar o mouse */
 }
 
+/* Altera a cor do ícone ao passar o mouse */
 .icon:hover {
-  color: red; /* Cor ao passar o mouse sobre o ícone */
+  color: red; /* Altera a cor para vermelho */
 }
 
+/* Estilo para o ícone de verificação */
 .check-icon {
-  color: rgb(0, 230, 122); /* Cor do ícone "ok" */
+  font-size: 25px; /* Define o tamanho da fonte */
+  margin-left: 10px; /* Adiciona margem à esquerda */
+  color: rgb(0,230,122); /* Define a cor como verde */
+  cursor: pointer; /* Altera o cursor para pointer ao passar o mouse */
 }
 
-
-.todo-list-item h3{
-  font-size: 25px;
-  color: rgb(0,230,122);
-  font-weight: bold;
-  margin: 0;
+/* Altera a cor do ícone de verificação ao passar o mouse */
+.check-icon:hover {
+  color: rgb(4, 196, 106); /* Escurece a cor verde */
 }
 
-.todo-list-item p{
-  font-size: 14px;
-  color: rgb(161,161,161);
-  margin-top: 0px;
+/* Estilo para o contêiner de edição */
+.edit__wrapper {
+  background-color: #414040; /* Define a cor de fundo como cinza mais claro */
+  padding: 10px; /* Adiciona padding dentro do contêiner */
+  display: flex; /* Usa flexbox para o layout */
+  flex-direction: column; /* Organiza os itens verticalmente */
 }
 
+/* Estilo para os elementos input e textarea dentro do contêiner de edição */
+.edit__wrapper input, .edit__wrapper textarea {
+  border: 1px solid lightgray; /* Adiciona uma borda cinza clara */
+  padding: 10px; /* Adiciona padding dentro dos elementos */
+  margin: 5px; /* Adiciona margem ao redor dos elementos */
+  border-radius: 3px; /* Adiciona cantos arredondados */
+}
 
-
-
+/* Estilo para o botão primário dentro do contêiner de edição */
+.edit__wrapper .primaryBtn {
+  margin-left: auto; /* Centraliza o botão horizontalmente */
+  margin-right: auto; /* Centraliza o botão horizontalmente */
+  padding: 10px; /* Adiciona padding dentro do botão */
+  font-size: 16px; /* Define o tamanho da fonte */
+  width: fit-content; /* Define a largura para caber no conteúdo */
+}
