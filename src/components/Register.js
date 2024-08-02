@@ -1,44 +1,49 @@
 import React, { useState } from 'react';
-import TaskList from './components/TaskList';
-import TaskForm from './components/TaskForm';
-import Login from './components/Login';
-import Register from './components/Register';
-import './App.css';
+import axios from 'axios';
 
-function App() {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [isRegistering, setIsRegistering] = useState(false);
+function Register({ onAuthChange }) {
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+  const [success, setSuccess] = useState('');
 
-  const handleAuthChange = (authStatus) => {
-    setIsAuthenticated(authStatus);
-  };
+  const handleRegister = () => {
+    if (!username || !password) {
+      setError('Username and password are required');
+      return;
+    }
 
-  const handleLogin = () => {
-    // Logic to handle login
+    axios.post('http://127.0.0.1:8000/register', { username, password })
+      .then(response => {
+        setSuccess('Registration successful! Please log in.');
+        setError('');
+        onAuthChange(true);
+      })
+      .catch(error => {
+        setError('Error registering: ' + error.response?.data?.error || error.message);
+        setSuccess('');
+      });
   };
 
   return (
-    <div className="App">
-      <h1>Todo App</h1>
-      {!isAuthenticated ? (
-        <>
-          {isRegistering ? (
-            <Register onAuthChange={handleAuthChange} />
-          ) : (
-            <Login onAuthChange={handleAuthChange} onLogin={handleLogin} />
-          )}
-          <button onClick={() => setIsRegistering(!isRegistering)}>
-            {isRegistering ? 'Login' : 'Register'}
-          </button>
-        </>
-      ) : (
-        <>
-          <TaskForm />
-          <TaskList />
-        </>
-      )}
+    <div className="register-form">
+      <input
+        type="text"
+        value={username}
+        onChange={(e) => setUsername(e.target.value)}
+        placeholder="Username"
+      />
+      <input
+        type="password"
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
+        placeholder="Password"
+      />
+      <button onClick={handleRegister}>Register</button>
+      {error && <p className="error-message">{error}</p>}
+      {success && <p className="success-message">{success}</p>}
     </div>
   );
 }
 
-export default App;
+export default Register;

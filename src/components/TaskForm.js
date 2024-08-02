@@ -1,43 +1,38 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 
-function TaskForm() {
-  const [title, setTitle] = useState('');
-  const [description, setDescription] = useState('');
-  const [editIndex, setEditIndex] = useState(null);
+function Register({ onAuthChange }) {
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
 
-  const handleAddOrUpdateTask = () => {
-    let existingTasks = JSON.parse(localStorage.getItem('todolist')) || [];
-    
-    if (editIndex !== null) {
-      existingTasks[editIndex] = { title, description };
-      setEditIndex(null);
-    } else {
-      existingTasks.push({ title, description });
+  const handleRegister = () => {
+    if (username && password) {
+      axios.post('http://127.0.0.1:8000/register', { username, password })
+        .then(response => {
+          // Handle successful registration (e.g., redirect to login or show a message)
+          onAuthChange(true); // Consider user authenticated after registration
+        })
+        .catch(error => console.error('Error registering:', error));
     }
-    
-    localStorage.setItem('todolist', JSON.stringify(existingTasks));
-    setTitle('');
-    setDescription('');
   };
 
   return (
-    <div className="task-form">
+    <div className="register-form">
       <input
         type="text"
-        value={title}
-        onChange={(e) => setTitle(e.target.value)}
-        placeholder="Title"
+        value={username}
+        onChange={(e) => setUsername(e.target.value)}
+        placeholder="Username"
       />
-      <textarea
-        value={description}
-        onChange={(e) => setDescription(e.target.value)}
-        placeholder="Description"
+      <input
+        type="password"
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
+        placeholder="Password"
       />
-      <button onClick={handleAddOrUpdateTask}>
-        {editIndex !== null ? 'Update Task' : 'Add Task'}
-      </button>
+      <button onClick={handleRegister}>Register</button>
     </div>
   );
 }
 
-export default TaskForm;
+export default Register;
