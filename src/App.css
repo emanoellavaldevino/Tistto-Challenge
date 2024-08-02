@@ -100,11 +100,54 @@ h1 {
 
 .todo-list-item {
   background: #454545; /* Cor de fundo do item de tarefa */
-  display: flex;
-  justify-content: space-between;
+  display: flex; /* Alinha os itens em linha */
+  justify-content: space-between; /* Espaça o conteúdo e os ícones */
+  align-items: center; /* Alinha verticalmente o conteúdo e os ícones */
   padding: 10px; /* Espaçamento interno do item de tarefa */
-  padding-bottom: 25px; /* Espaçamento inferior do item de tarefa */
-  padding-top: 10px;
-  margin-bottom: 10px;
-  border-radius: 6px; /* Borda arredondada do item de tarefa */
+  margin-bottom: 10px; /* Espaçamento inferior do item de tarefa */
+  box-shadow: 0px 2px 3px; /* Borda arredondada do item de tarefa */
+
 }
+
+.todo-content {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1; /* Faz o conteúdo ocupar o espaço restante */
+}
+
+.icon-container {
+  display: flex; /* Alinha os ícones horizontalmente */
+  align-items: center; /* Alinha verticalmente os ícones no centro */
+}
+
+.icon {
+  font-size: 25px; /* Tamanho dos ícones */
+  cursor: pointer; /* Cursor de ponteiro ao passar sobre o ícone */
+  margin-left: 10px; /* Espaçamento entre os ícones */
+}
+
+.icon:hover {
+  color: red; /* Cor ao passar o mouse sobre o ícone */
+}
+
+.check-icon {
+  color: rgb(0, 230, 122); /* Cor do ícone "ok" */
+}
+
+
+.todo-list-item h3{
+  font-size: 25px;
+  color: rgb(0,230,122);
+  font-weight: bold;
+  margin: 0;
+}
+
+.todo-list-item p{
+  font-size: 14px;
+  color: rgb(161,161,161);
+  margin-top: 0px;
+}
+
+
+
+
