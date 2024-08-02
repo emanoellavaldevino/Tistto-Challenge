@@ -1,4 +1,7 @@
 from django.shortcuts import render, get_object_or_404
+from django.http import HttpResponse  # Certifique-se de importar HttpResponse
+from django.conf import settings
+import os
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate
 from rest_framework import status
@@ -8,6 +11,15 @@ from rest_framework.response import Response
 from rest_framework_simplejwt.tokens import RefreshToken
 from .models import Todo
 from .serializers import TodoSerializer
+
+# View para servir o arquivo index.html
+def index(request):
+    index_path = os.path.join(settings.BASE_DIR, 'react_', 'todo_frontend', 'build', 'index.html')
+    print(f"Index path: {index_path}")  # Adicione esta linha para depuração
+    if not os.path.exists(index_path):
+        return HttpResponse("File not found", status=404)
+    with open(index_path, 'r') as file:
+        return HttpResponse(file.read(), content_type='text/html')
 
 # View para listar e criar tarefas
 @api_view(["GET", "POST"])
@@ -69,8 +81,3 @@ def login(request):
             refresh = RefreshToken.for_user(user)  # Criar tokens de atualização e acesso para o usuário
             return Response({'refresh': str(refresh), 'access': str(refresh.access_token)}, status=status.HTTP_200_OK)
         return Response({"error": "Credenciais inválidas"}, status=status.HTTP_400_BAD_REQUEST)
-
-
-def index(request):
-    return render(request, 'index.html')
-

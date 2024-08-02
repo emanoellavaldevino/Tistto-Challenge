@@ -8,7 +8,7 @@ urlpatterns = [
     path('todos/', views.todo_list), # Rota para listar e criar tarefas
     path('todos/<int:pk>', views.todo_detail), # Rota para manipular uma tarefa específica
     path('register/', views.register), # Rota para registrar novos usuários
-    path('login', views.login),     # Rota para login de usuários
+    path('login/', views.login),     # Rota para login de usuários
 ]  
 
 # URLs para suas views:

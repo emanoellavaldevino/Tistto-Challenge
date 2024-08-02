@@ -10,8 +10,8 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
-from pathlib import Path
 import os
+from pathlib import Path
 from datetime import timedelta
 
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -51,9 +51,7 @@ ROOT_URLCONF = 'todo_project.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-         'DIRS': [
-            os.path.join(BASE_DIR, 'react_', 'todo_frontend', 'build', 'static'),
-        ],
+        'DIRS': [os.path.join(BASE_DIR, 'react_', 'todo_frontend', 'build')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -99,9 +97,7 @@ USE_I18N = True
 USE_TZ = True
 
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'react_', 'todo_frontend', 'build', 'static'),
-]
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'react_', 'todo_frontend', 'build', 'static')]
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
