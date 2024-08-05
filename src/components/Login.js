@@ -17,8 +17,7 @@ function Login({ onAuthChange }) {
 
     axios.post('http://127.0.0.1:8000/login', { username, password })
       .then(response => {
-        localStorage.setItem('refreshToken', response.data.refresh);
-        localStorage.setItem('accessToken', response.data.access);
+        localStorage.setItem('authToken', response.data.token);
         setSuccess('Login successful! Redirecting...');
         setError('');
         onAuthChange(true);
