@@ -1,21 +1,23 @@
 from django.shortcuts import render, get_object_or_404
-from django.http import HttpResponse  # Certifique-se de importar HttpResponse
+from django.http import HttpResponse
 from django.conf import settings
 import os
 from django.contrib.auth.models import User
-from django.contrib.auth import authenticate
-from rest_framework import status
+from django.contrib.auth import authenticate, login, logout
+from rest_framework import status, generics, viewsets
 from rest_framework.decorators import api_view, permission_classes
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.response import Response
 from rest_framework_simplejwt.tokens import RefreshToken
-from .models import Todo
-from .serializers import TodoSerializer
+from rest_framework.views import APIView  # Adicionando a importação para APIView
+from django.utils.decorators import method_decorator
+from django.views.decorators.csrf import csrf_exempt
+from .models import Todo, Task
+from .serializers import TodoSerializer, RegisterSerializer, TaskSerializer
 
 # View para servir o arquivo index.html
 def index(request):
-    index_path = os.path.join(settings.BASE_DIR, 'react_', 'todo_frontend', 'build', 'index.html')
-    print(f"Index path: {index_path}")  # Adicione esta linha para depuração
+    index_path = os.path.join(settings.BASE_DIR, '..', 'react_', 'todo_frontend', 'build', 'index.html')
     if not os.path.exists(index_path):
         return HttpResponse("File not found", status=404)
     with open(index_path, 'r') as file:
@@ -60,6 +62,7 @@ def todo_detail(request, pk):
 
 # View para registrar novos usuários
 @api_view(["POST"])
+@permission_classes([AllowAny])
 def register(request):
     if request.method == "POST":
         username = request.data.get('username')  # Obter o nome de usuário do corpo da requisição
@@ -72,7 +75,8 @@ def register(request):
 
 # View para login de usuários
 @api_view(['POST'])
-def login(request):
+@permission_classes([AllowAny])
+def login_view(request):
     if request.method == 'POST':
         username = request.data.get('username')  # Obter o nome de usuário do corpo da requisição
         password = request.data.get('password')  # Obter a senha do corpo da requisição
@@ -81,3 +85,50 @@ def login(request):
             refresh = RefreshToken.for_user(user)  # Criar tokens de atualização e acesso para o usuário
             return Response({'refresh': str(refresh), 'access': str(refresh.access_token)}, status=status.HTTP_200_OK)
         return Response({"error": "Credenciais inválidas"}, status=status.HTTP_400_BAD_REQUEST)
+
+class RegisterView(generics.CreateAPIView):
+    queryset = User.objects.all()
+    serializer_class = RegisterSerializer
+    permission_classes = [AllowAny]  # Permite acesso a qualquer usuário
+
+class LoginView(APIView):
+    permission_classes = [AllowAny]  # para testes das APIs via Postman
+
+    def post(self, request):
+        username = request.data.get('username')
+        password = request.data.get('password')
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user)
+            refresh = RefreshToken.for_user(user)  # Adicionando geração de tokens JWT
+            return Response({
+                'success': 'Login efetuado com sucesso',
+                'refresh': str(refresh),
+                'access': str(refresh.access_token)
+            })
+        return Response({'error': 'Credenciais inválidas'}, status=status.HTTP_400_BAD_REQUEST)
+
+
+class LogoutView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request):
+        logout(request)
+        return Response({'success': 'Logout efetuado com sucesso'}, status=status.HTTP_200_OK)
+
+
+class TaskViewSet(viewsets.ModelViewSet):
+    serializer_class = TaskSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        # Filtra as tarefas pelo usuário autenticado
+        return Task.objects.filter(user=self.request.user)
+
+    def perform_create(self, serializer):
+        # Define o usuário autenticado como o proprietário da tarefa
+        serializer.save(user=self.request.user)
+
+    def perform_update(self, serializer):
+        # Garante que o proprietário não seja alterado manualmente durante atualizações
+        serializer.save(user=self.request.user)

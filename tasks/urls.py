@@ -1,15 +1,27 @@
 from django.urls import path
-from . import views
-from django.conf import settings
-from django.conf.urls.static import static
+from .views import (
+    todo_list,
+    todo_detail,
+    register,
+    login_view,
+    RegisterView,
+    LoginView,
+    TaskViewSet
+)
+from rest_framework.routers import DefaultRouter
 
+router = DefaultRouter()
+router.register(r'tasks', TaskViewSet, basename='task')
 
 urlpatterns = [
-    path('todos/', views.todo_list), # Rota para listar e criar tarefas
-    path('todos/<int:pk>', views.todo_detail), # Rota para manipular uma tarefa específica
-    path('register/', views.register), # Rota para registrar novos usuários
-    path('login/', views.login),     # Rota para login de usuários
-]  
+    path('todos/', todo_list, name='todo_list'),
+    path('todos/<int:pk>/', todo_detail, name='todo_detail'),
+    path('register/', RegisterView.as_view(), name='register'),
+    path('login/', LoginView.as_view(), name='login'),
+] + router.urls
+
+
+
 
 # URLs para suas views:
 # http://127.0.0.1:8000/todos
